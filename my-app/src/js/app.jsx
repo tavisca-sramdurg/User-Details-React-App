@@ -5,7 +5,16 @@ import Footer from "./footer.jsx";
 import Content from "./content.jsx";
 import Navigation from "./navigation.jsx";
 
-
+export var userArray = [{
+    name: "Shravan Ramdurg",
+    id: 0
+},{
+    name: "Dhruv Ramdurg",
+    id: 1
+},{
+    name: "xyz Ramdurg",
+    id: 2
+}];
 
 
 class App extends React.Component{
@@ -13,28 +22,37 @@ class App extends React.Component{
     constructor(){
         super();
         this.state = {
-            counter: 0,
-            name: "Shravan Ramdurg"
+            userArray: userArray,
+           
+            selected : 0
         }
+        // this.updateSelectedId.bind(this);
     }
 
-    updateName (newName) {
-        console.log(newName+"name")
+    updateName (name) {
+        var newArray = this.state.userArray;
+        newArray[this.state.selected].name = name
         this.setState({
-            name: newName
-        })
+            userArray: newArray
+        });
     }
+
+    updateSelectedId(id){
+        console.log("updateSelected id "+id)
+        this.setState({
+            selected: id
+        });
+    }
+
+
     render(){
         return <div className="main">
-                    <Header firstName="John" />
-                    {/* <Content  name={this.state.name}/>
-                    <Navigation updateName={this.updateName.bind(this)}/> */}
-                    <Content  updateName={this.updateName.bind(this)}/>
-                    <Navigation name={this.state.name}/>
+                    <Header />
+                    <Content  name={this.state.userArray[this.state.selected]}  updateName={this.updateName.bind(this)} />
+                    <Navigation userArray={this.state.userArray} updateSelectedId={this.updateSelectedId.bind(this)} />
                     <Footer />
                 </div>;
     }
-
 }
 
 
@@ -44,9 +62,5 @@ ReactDOM.render(
     document.getElementById('OuterDiv')
 );
 
-
-
-
-
-
-
+module.exports = App;
+export default {userArray};

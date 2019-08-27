@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import App, { userArray } from "./app.jsx";
+import { isRegExp } from "util";
 
 class Content extends React.Component{
-
-    constructor () {
+    constructor(){
         super()
-        this.state ={
-            name: "Shravan Ramdurg"
+        this.state = {
+            name:""
         }
         this.handleChange = this.handleChange.bind(this)
     }
@@ -15,15 +16,17 @@ class Content extends React.Component{
         this.setState({
             name: e.target.value
         })
+
     }
 
     render(){
-        return <div className="content">
-            <section>
-            </section>
-            <input value={this.state.name} onChange={this.handleChange}></input><br></br>
-            <button onClick={() => this.props.updateName(this.state.name)}>Update</button>
-        </div>
+        let currentName = this.props.name.name
+        
+        return (<div className="content">
+            {currentName}
+            <input value={this.state.name} id="inputname" onChange={this.handleChange}></input><br></br>
+            <button onClick={() => this.props.updateName(this.state.name)}>Update Name</button>
+        </div>)
     }
 }
 
